@@ -1,0 +1,28 @@
+body {
+  margin: auto;
+  font-family: "Proza Libre", sans-serif;
+  font-size: normal;
+  background-color: #eaeaea;
+}
+
+header {
+  background-color: rgb(7, 127, 255);
+  color: white;
+}
+
+.title {
+  font-size: 4.5rem;
+  font-weight: lighter;
+  margin: 30px auto;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.search-tab {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}

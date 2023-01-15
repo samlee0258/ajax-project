@@ -11,8 +11,38 @@
 </head>
 <body>
   <header>
+    <div class="container">
+      <div class="row">
+        <div class="column-full flex">
+          <h2>PokéStats</h2>
+          <a href="#" id="search-tab" class="search-tab">Search</a>
+        </div>
+      </div>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div data-view="home-page" class="">
+      <form id="search">
+        <div class="row">
+          <div class="column-full">
+            <p class="title">PokéStats</p>
+          </div>
+          <!-- <label for="pkm">
+            <input type="text" placeholder="Search for pokémon here">
+          </label>
+          <label for="">
+            <button type="submit">Search</button>
+          </label> -->
+        </div>
+      </form>
+    </div>
+    <div data-view="search-result" class="hidden">
+      <div class="row">
+        <div class="column-full">
+
+        </div>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
