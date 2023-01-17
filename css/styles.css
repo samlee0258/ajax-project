@@ -10,13 +10,34 @@ header {
   color: white;
 }
 
+h3 {
+  font-weight: lighter;
+}
+
 img {
   width: 100%;
 }
 
-/* input {
-  width: ;
-} */
+input {
+  height: 30px;
+  width: 240px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.search-bttn {
+  height: 35px;
+  width: 70px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: rgb(7, 127, 255);
+  color: white;
+  font-size: normal;
+}
+
+.search-bar {
+  margin-top: 10px;
+}
 
 .title {
   font-size: 4.5rem;
@@ -32,7 +53,7 @@ img {
 .search-tab {
   color: white;
   text-decoration: none;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 .center {
@@ -41,11 +62,15 @@ img {
 
 .image {
   width: 200px;
-  margin: 50px auto 0;
+  margin: 40px auto 0;
 }
 
 @media screen and (min-width: 768px) {
   img {
     width: 100%;
+  }
+
+  .search-tab {
+    margin-left: 40px;
   }
 }
