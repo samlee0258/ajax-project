@@ -10,6 +10,14 @@ header {
   color: white;
 }
 
+img {
+  width: 100%;
+}
+
+/* input {
+  width: ;
+} */
+
 .title {
   font-size: 4.5rem;
   font-weight: lighter;
@@ -25,4 +33,19 @@ header {
   color: white;
   text-decoration: none;
   margin-left: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.image {
+  width: 200px;
+  margin: 50px auto 0;
+}
+
+@media screen and (min-width: 768px) {
+  img {
+    width: 100%;
+  }
 }

@@ -24,15 +24,20 @@
     <div data-view="home-page" class="">
       <form id="search">
         <div class="row">
-          <div class="column-full">
+          <div class="main-title column-full center">
             <p class="title">PokéStats</p>
           </div>
-          <!-- <label for="pkm">
-            <input type="text" placeholder="Search for pokémon here">
-          </label>
-          <label for="">
-            <button type="submit">Search</button>
-          </label> -->
+          <div class="search-bar column-full center">
+            <label for="pokemon-name">
+              <input type="text" maxlength="30" placeholder="Search for pokémon here" required="true">
+            </label>
+            <label for="search-bttn">
+              <button type="submit">Search</button>
+            </label>
+          </div>
+          <div class="image column-full center">
+            <img src="images/icons/PokeBall_Icon.png" alt="PokéBall Icon">
+          </div>
         </div>
       </form>
     </div>
