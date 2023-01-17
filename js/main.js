@@ -11,6 +11,7 @@
 //   xhr.addEventListener('load', function (e) {
 //     console.log(xhr.status);
 //     console.log(xhr.response);
+//     console.log(xhr.response.stats[0].stat.name);
 //   });
 //   xhr.send();
 // }

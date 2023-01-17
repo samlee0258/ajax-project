@@ -10,6 +10,11 @@ header {
   color: white;
 }
 
+h2 {
+  font-weight: normal;
+  margin: 0 auto;
+}
+
 h3 {
   font-weight: lighter;
 }
@@ -23,6 +28,12 @@ input {
   width: 240px;
   border: 1px solid #ced4da;
   border-radius: 4px;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+  margin: 0 auto;
 }
 
 .search-bttn {
@@ -45,6 +56,11 @@ input {
   margin: 30px auto;
 }
 
+.search-title {
+  margin: 1.5rem auto 0.5rem;
+  font-size: 2.3rem;
+}
+
 .flex {
   display: flex;
   align-items: center;
@@ -53,16 +69,43 @@ input {
 .search-tab {
   color: white;
   text-decoration: none;
-  margin-left: 40px;
+  margin-left: 30px;
+  font-weight: lighter;
 }
 
 .center {
   text-align: center;
 }
 
-.image {
+.pokeball-image {
   width: 200px;
   margin: 40px auto 0;
+}
+
+.type-container {
+  margin: -10px 0 0;
+  align-items: center;
+}
+
+.type-electric {
+  height: auto;
+  width: 1.5rem;
+  border-radius: 50%;
+  background-color: yellow;
+  margin-right: 5px;
+  border: 1px solid lightgray;
+}
+
+.pokemon-image {
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: 90%;
+  margin-left: 20px;
+}
+
+.spacing {
+  margin-right: 100px;
 }
 
 @media screen and (min-width: 768px) {
@@ -70,7 +113,23 @@ input {
     width: 100%;
   }
 
+  .pokemon-name {
+    margin-top: 20px;
+  }
+
+  .stat-title {
+    margin-top: 10px;
+  }
+
   .search-tab {
     margin-left: 40px;
+  }
+
+  .pokemon-image {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    width: 90%;
+    margin-left: 20px;
   }
 }
