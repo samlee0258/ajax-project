@@ -93,7 +93,7 @@ ul {
   border-radius: 50%;
   background-color: yellow;
   margin-right: 5px;
-  border: 1px solid lightgray;
+  border: 1px solid transparent;
 }
 
 .pokemon-image {

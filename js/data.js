@@ -3,5 +3,5 @@
 var data = {
   view: 'home-page',
   entries: [],
-  nextEntryId: 1
+  nextDataId: 1
 };
