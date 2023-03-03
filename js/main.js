@@ -5,11 +5,8 @@ var $searchResult = document.querySelector('div[data-view="search-result"]');
 var $searchTab = document.querySelector('.search-tab');
 var $ul = document.querySelector('ul');
 
-// document.addEventListener('DOMContentLoaded', handlePageLoad);
-
 $searchForm.addEventListener('submit', function () {
   event.preventDefault();
-  // console.log($searchInput.value);
   getPokemonData($searchInput.value);
   viewSwap('search-result');
 });
@@ -25,12 +22,6 @@ function getPokemonData(name) {
   xhr.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + name);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function (e) {
-    // console.log(xhr.status);
-    // console.log(xhr.response);
-    // console.log(xhr.response.sprites.other['official-artwork'].front_default);
-    // console.log(xhr.response.stats[0].base_stat);
-    // console.log(xhr.response.types[0].type.name);
-    // renderSearchResult();
     renderDomTree(xhr.response);
   });
   xhr.send();
@@ -177,14 +168,6 @@ function renderDomTree(pokemon) {
 
   return $li;
 }
-
-// function handlePageLoad(event) {
-//   for (var i = 0; i < data.entries.length; i++) {
-//     var $searchObjects = renderSearchResult(data.entries[i]);
-//     $ul.appendChild($searchObjects);
-//   }
-//   viewSwap('search-result');
-// }
 
 function viewSwap(dataView) {
   data.view = dataView;
