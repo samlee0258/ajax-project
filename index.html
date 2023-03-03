@@ -11,8 +11,46 @@
 </head>
 <body>
   <header>
+    <div class="container">
+      <div class="row">
+        <div class="column-full flex">
+          <h3>PokéStats</h3>
+          <a href="#" id="search-tab" class="search-tab">Search</a>
+        </div>
+      </div>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div data-view="home-page" class="">
+      <form id="home-page">
+        <div class="row">
+          <div class="main-title column-full center">
+            <p class="title">PokéStats</p>
+          </div>
+          <div class="search column-full center">
+            <label for="pokemon-name">
+              <input id="search-bar" class="search-bar" type="text" maxlength="30" placeholder="Search" required="true">
+            </label>
+            <label for="search-bttn">
+              <button type="submit" class="search-bttn">Search</button>
+            </label>
+          </div>
+          <div class="pokeball-image column-full center">
+            <img src="images/icons/PokeBall_Icon.png" alt="PokéBall-Icon">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div data-view="search-result" class="hidden">
+      <div class="row">
+        <div class="column-full">
+          <p class="search-title">Search Result</p>
+        </div>
+      </div>
+      <ul>
+
+      </ul>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
