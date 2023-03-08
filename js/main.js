@@ -3,6 +3,8 @@ var $searchForm = document.querySelector('form');
 var $homePage = document.querySelector('div[data-view="home-page"]');
 var $searchResult = document.querySelector('div[data-view="search-result"]');
 var $searchTab = document.querySelector('.search-tab');
+var $favoritesTab = document.querySelector('#favorites-tab');
+var $favorites = document.querySelector('div[data-view="favorites"]');
 var $ul = document.querySelector('ul');
 
 $searchForm.addEventListener('submit', function () {
@@ -14,6 +16,10 @@ $searchForm.addEventListener('submit', function () {
 $searchTab.addEventListener('click', function () {
   viewSwap('home-page');
   $searchInput.value = '';
+});
+
+$favoritesTab.addEventListener('click', function () {
+  viewSwap('favorites');
 });
 
 function getPokemonData(name) {
@@ -174,8 +180,14 @@ function viewSwap(dataView) {
   if (data.view === 'home-page') {
     $homePage.className = 'home-page';
     $searchResult.className = 'hidden';
+    $favorites.className = 'hidden';
   } else if (data.view === 'search-result') {
-    $homePage.className = 'hidden';
     $searchResult.className = 'search-result';
+    $homePage.className = 'hidden';
+    $favorites.className = 'hidden';
+  } else if (data.view === 'favorites') {
+    $favorites.className = 'favorites';
+    $homePage.className = 'hidden';
+    $searchResult.className = 'hidden';
   }
 }
