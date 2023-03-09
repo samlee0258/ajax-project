@@ -200,15 +200,34 @@ ul {
   margin-right: 100px;
 }
 
+.column-spacing {
+  margin-top: -10px;
+}
+
+.stat-container {
+  margin-top: -5px;
+}
+
 .no-favorites {
   text-align: center;
 }
 
-@media screen and (min-width: 768px) {
-  img {
-    width: 100%;
-  }
+.button-container {
+  display: flex;
+  justify-content: center;
+}
 
+.favorites-button {
+  margin: 10px 0;
+  padding: 10px 80px;
+  font-size: large;
+  background-color: rgb(7, 127, 255);
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
   .pokemon-name {
     margin-top: 20px;
   }
@@ -227,5 +246,18 @@ ul {
     height: auto;
     width: 90%;
     margin-left: 20px;
+  }
+
+  .stat-container {
+    margin-top: 0;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: start;
+  }
+
+  .favorites-button {
+    padding: 10px 65px;
   }
 }

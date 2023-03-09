@@ -172,6 +172,15 @@ function renderDomTree(pokemon) {
   $speed.textContent = 'Speed: ' + pokemon.stats[5].base_stat;
   $columnTwo.appendChild($speed);
 
+  var $buttonContainer = document.createElement('div');
+  $buttonContainer.className = 'button-container';
+  $pokemonContainer.appendChild($buttonContainer);
+
+  var $favoritesButton = document.createElement('button');
+  $favoritesButton.textContent = 'Add to Favorites';
+  $favoritesButton.className = 'favorites-button';
+  $buttonContainer.appendChild($favoritesButton);
+
   return $li;
 }
 
