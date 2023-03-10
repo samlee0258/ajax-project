@@ -5,10 +5,13 @@ var $searchResult = document.querySelector('div[data-view="search-result"]');
 var $searchTab = document.querySelector('.search-tab');
 var $favoritesTab = document.querySelector('#favorites-tab');
 var $favorites = document.querySelector('div[data-view="favorites"]');
-var $ul = document.querySelector('ul');
+var $favoritesButton;
+var $searchedPokemonUl = document.querySelector('#searched-pokemon');
+// var $favoritedPokemonUl = document.querySelector('#favorite-pokemon');
 
 $searchForm.addEventListener('submit', function () {
   event.preventDefault();
+  $searchedPokemonUl.innerHTML = '';
   getPokemonData($searchInput.value);
   viewSwap('search-result');
 });
@@ -34,10 +37,9 @@ function getPokemonData(name) {
 }
 
 function renderDomTree(pokemon) {
-  $ul.innerHTML = '';
   var $li = document.createElement('li');
   $li.setAttribute('data-id', pokemon.id);
-  $ul.appendChild($li);
+  $searchedPokemonUl.appendChild($li);
 
   var $outerDiv = document.createElement('div');
   $outerDiv.className = 'row';
@@ -176,7 +178,7 @@ function renderDomTree(pokemon) {
   $buttonContainer.className = 'button-container';
   $pokemonContainer.appendChild($buttonContainer);
 
-  var $favoritesButton = document.createElement('button');
+  $favoritesButton = document.createElement('button');
   $favoritesButton.textContent = 'Add to Favorites';
   $favoritesButton.className = 'favorites-button';
   $buttonContainer.appendChild($favoritesButton);
@@ -200,3 +202,11 @@ function viewSwap(dataView) {
     $searchResult.className = 'hidden';
   }
 }
+
+$searchedPokemonUl.addEventListener('click', function (e) {
+  // console.log(e.target.tagName);
+  if (e.target.tagName === 'BUTTON') {
+    // console.log('hello');
+    viewSwap('favorites');
+  }
+});

@@ -2,6 +2,17 @@
 
 var data = {
   view: 'home-page',
-  entries: [],
+  pokemons: [],
   nextDataId: 1
 };
+
+window.addEventListener('beforeunload', function (event) {
+  var dataJSON = JSON.stringify(data);
+  localStorage.setItem('pokemons', dataJSON);
+});
+
+var pokemonEntries = localStorage.getItem('pokemons');
+
+if (pokemonEntries !== null) {
+  data = JSON.parse(pokemonEntries);
+}
