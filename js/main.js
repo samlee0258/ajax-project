@@ -7,7 +7,8 @@ var $favoritesTab = document.querySelector('#favorites-tab');
 var $favorites = document.querySelector('div[data-view="favorites"]');
 var $favoritesButton;
 var $searchedPokemonUl = document.querySelector('#searched-pokemon');
-// var $favoritedPokemonUl = document.querySelector('#favorite-pokemon');
+var $favoritedPokemonUl = document.querySelector('#favorite-pokemon');
+var currentPokemon = {};
 
 $searchForm.addEventListener('submit', function () {
   event.preventDefault();
@@ -32,6 +33,19 @@ function getPokemonData(name) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function (e) {
     renderDomTree(xhr.response);
+    var response = xhr.response;
+    currentPokemon = {};
+    currentPokemon.dataId = data.nextDataId;
+    currentPokemon.name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
+    currentPokemon.img = document.querySelector('.pokemon-image').getAttribute('src');
+    currentPokemon.typeName = response.types[0].type.name.charAt(0).toUpperCase() + response.types[0].type.name.slice(1);
+    currentPokemon.typeIcon = document.querySelector('.type').getAttribute('src');
+    currentPokemon.hp = response.stats[0].base_stat;
+    currentPokemon.atk = response.stats[1].base_stat;
+    currentPokemon.def = response.stats[2].base_stat;
+    currentPokemon.spAtk = response.stats[3].base_stat;
+    currentPokemon.spDef = response.stats[4].base_stat;
+    currentPokemon.speed = response.stats[5].base_stat;
   });
   xhr.send();
 }
@@ -50,7 +64,11 @@ function renderDomTree(pokemon) {
   $outerDiv.appendChild($imgDivContainer);
 
   var $pokemonImage = document.createElement('img');
-  $pokemonImage.setAttribute('src', pokemon.sprites.other['official-artwork'].front_default);
+  if (pokemon.sprites) {
+    $pokemonImage.setAttribute('src', pokemon.sprites.other['official-artwork'].front_default);
+  } else {
+    $pokemonImage.setAttribute('src', pokemon.img);
+  }
   $pokemonImage.className = 'pokemon-image';
   $imgDivContainer.appendChild($pokemonImage);
 
@@ -68,65 +86,127 @@ function renderDomTree(pokemon) {
   $pokemonContainer.appendChild($typeContainer);
 
   var $typeImage = document.createElement('img');
-  if (pokemon.types[0].type.name === 'bug') {
-    $typeImage.setAttribute('src', 'images/icons/bug.svg');
-    $typeImage.className = 'type-bug';
-  } else if (pokemon.types[0].type.name === 'dark') {
-    $typeImage.setAttribute('src', 'images/icons/dark.svg');
-    $typeImage.className = 'type-dark';
-  } else if (pokemon.types[0].type.name === 'dragon') {
-    $typeImage.setAttribute('src', 'images/icons/dragon.svg');
-    $typeImage.className = 'type-dragon';
-  } else if (pokemon.types[0].type.name === 'electric') {
-    $typeImage.setAttribute('src', 'images/icons/electric.svg');
-    $typeImage.className = 'type-electric';
-  } else if (pokemon.types[0].type.name === 'fairy') {
-    $typeImage.setAttribute('src', 'images/icons/fairy.svg');
-    $typeImage.className = 'type-fairy';
-  } else if (pokemon.types[0].type.name === 'fighting') {
-    $typeImage.setAttribute('src', 'images/icons/fighting.svg');
-    $typeImage.className = 'type-fighting';
-  } else if (pokemon.types[0].type.name === 'fire') {
-    $typeImage.setAttribute('src', 'images/icons/fire.svg');
-    $typeImage.className = 'type-fire';
-  } else if (pokemon.types[0].type.name === 'flying') {
-    $typeImage.setAttribute('src', 'images/icons/flying.svg');
-    $typeImage.className = 'type-flying';
-  } else if (pokemon.types[0].type.name === 'ghost') {
-    $typeImage.setAttribute('src', 'images/icons/ghost.svg');
-    $typeImage.className = 'type-ghost';
-  } else if (pokemon.types[0].type.name === 'grass') {
-    $typeImage.setAttribute('src', 'images/icons/grass.svg');
-    $typeImage.className = 'type-grass';
-  } else if (pokemon.types[0].type.name === 'ground') {
-    $typeImage.setAttribute('src', 'images/icons/ground.svg');
-    $typeImage.className = 'type-ground';
-  } else if (pokemon.types[0].type.name === 'ice') {
-    $typeImage.setAttribute('src', 'images/icons/ice.svg');
-    $typeImage.className = 'type-ice';
-  } else if (pokemon.types[0].type.name === 'normal') {
-    $typeImage.setAttribute('src', 'images/icons/normal.svg');
-    $typeImage.className = 'type-normal';
-  } else if (pokemon.types[0].type.name === 'poison') {
-    $typeImage.setAttribute('src', 'images/icons/poison.svg');
-    $typeImage.className = 'type-poison';
-  } else if (pokemon.types[0].type.name === 'psychic') {
-    $typeImage.setAttribute('src', 'images/icons/psychic.svg');
-    $typeImage.className = 'type-psychic';
-  } else if (pokemon.types[0].type.name === 'rock') {
-    $typeImage.setAttribute('src', 'images/icons/rock.svg');
-    $typeImage.className = 'type-rock';
-  } else if (pokemon.types[0].type.name === 'steel') {
-    $typeImage.setAttribute('src', 'images/icons/steel.svg');
-    $typeImage.className = 'type-steel';
-  } else if (pokemon.types[0].type.name === 'water') {
-    $typeImage.setAttribute('src', 'images/icons/water.svg');
-    $typeImage.className = 'type-water';
+  if (pokemon.types) {
+    if (pokemon.types[0].type.name === 'bug') {
+      $typeImage.setAttribute('src', 'images/icons/bug.svg');
+      $typeImage.className = 'type type-bug';
+    } else if (pokemon.types[0].type.name === 'dark') {
+      $typeImage.setAttribute('src', 'images/icons/dark.svg');
+      $typeImage.className = 'type type-dark';
+    } else if (pokemon.types[0].type.name === 'dragon') {
+      $typeImage.setAttribute('src', 'images/icons/dragon.svg');
+      $typeImage.className = 'type type-dragon';
+    } else if (pokemon.types[0].type.name === 'electric') {
+      $typeImage.setAttribute('src', 'images/icons/electric.svg');
+      $typeImage.className = 'type type-electric';
+    } else if (pokemon.types[0].type.name === 'fairy') {
+      $typeImage.setAttribute('src', 'images/icons/fairy.svg');
+      $typeImage.className = 'type type-fairy';
+    } else if (pokemon.types[0].type.name === 'fighting') {
+      $typeImage.setAttribute('src', 'images/icons/fighting.svg');
+      $typeImage.className = 'type type-fighting';
+    } else if (pokemon.types[0].type.name === 'fire') {
+      $typeImage.setAttribute('src', 'images/icons/fire.svg');
+      $typeImage.className = 'type type-fire';
+    } else if (pokemon.types[0].type.name === 'flying') {
+      $typeImage.setAttribute('src', 'images/icons/flying.svg');
+      $typeImage.className = 'type type-flying';
+    } else if (pokemon.types[0].type.name === 'ghost') {
+      $typeImage.setAttribute('src', 'images/icons/ghost.svg');
+      $typeImage.className = 'type type-ghost';
+    } else if (pokemon.types[0].type.name === 'grass') {
+      $typeImage.setAttribute('src', 'images/icons/grass.svg');
+      $typeImage.className = 'type type-grass';
+    } else if (pokemon.types[0].type.name === 'ground') {
+      $typeImage.setAttribute('src', 'images/icons/ground.svg');
+      $typeImage.className = 'type type-ground';
+    } else if (pokemon.types[0].type.name === 'ice') {
+      $typeImage.setAttribute('src', 'images/icons/ice.svg');
+      $typeImage.className = 'type type-ice';
+    } else if (pokemon.types[0].type.name === 'normal') {
+      $typeImage.setAttribute('src', 'images/icons/normal.svg');
+      $typeImage.className = 'type type-normal';
+    } else if (pokemon.types[0].type.name === 'poison') {
+      $typeImage.setAttribute('src', 'images/icons/poison.svg');
+      $typeImage.className = 'type type-poison';
+    } else if (pokemon.types[0].type.name === 'psychic') {
+      $typeImage.setAttribute('src', 'images/icons/psychic.svg');
+      $typeImage.className = 'type type-psychic';
+    } else if (pokemon.types[0].type.name === 'rock') {
+      $typeImage.setAttribute('src', 'images/icons/rock.svg');
+      $typeImage.className = 'type type-rock';
+    } else if (pokemon.types[0].type.name === 'steel') {
+      $typeImage.setAttribute('src', 'images/icons/steel.svg');
+      $typeImage.className = 'type type-steel';
+    } else if (pokemon.types[0].type.name === 'water') {
+      $typeImage.setAttribute('src', 'images/icons/water.svg');
+      $typeImage.className = 'type type-water';
+    }
+  } else {
+    if (pokemon.typeName === 'bug') {
+      $typeImage.setAttribute('src', 'images/icons/bug.svg');
+      $typeImage.className = 'type type-bug';
+    } else if (pokemon.typeName === 'dark') {
+      $typeImage.setAttribute('src', 'images/icons/dark.svg');
+      $typeImage.className = 'type type-dark';
+    } else if (pokemon.typeName === 'dragon') {
+      $typeImage.setAttribute('src', 'images/icons/dragon.svg');
+      $typeImage.className = 'type type-dragon';
+    } else if (pokemon.typeName === 'electric') {
+      $typeImage.setAttribute('src', 'images/icons/electric.svg');
+      $typeImage.className = 'type type-electric';
+    } else if (pokemon.typeName === 'fairy') {
+      $typeImage.setAttribute('src', 'images/icons/fairy.svg');
+      $typeImage.className = 'type type-fairy';
+    } else if (pokemon.typeName === 'fighting') {
+      $typeImage.setAttribute('src', 'images/icons/fighting.svg');
+      $typeImage.className = 'type type-fighting';
+    } else if (pokemon.typeName === 'fire') {
+      $typeImage.setAttribute('src', 'images/icons/fire.svg');
+      $typeImage.className = 'type type-fire';
+    } else if (pokemon.typeName === 'flying') {
+      $typeImage.setAttribute('src', 'images/icons/flying.svg');
+      $typeImage.className = 'type type-flying';
+    } else if (pokemon.typeName === 'ghost') {
+      $typeImage.setAttribute('src', 'images/icons/ghost.svg');
+      $typeImage.className = 'type type-ghost';
+    } else if (pokemon.typeName === 'grass') {
+      $typeImage.setAttribute('src', 'images/icons/grass.svg');
+      $typeImage.className = 'type type-grass';
+    } else if (pokemon.typeName === 'ground') {
+      $typeImage.setAttribute('src', 'images/icons/ground.svg');
+      $typeImage.className = 'type type-ground';
+    } else if (pokemon.typeName === 'ice') {
+      $typeImage.setAttribute('src', 'images/icons/ice.svg');
+      $typeImage.className = 'type type-ice';
+    } else if (pokemon.typeName === 'normal') {
+      $typeImage.setAttribute('src', 'images/icons/normal.svg');
+      $typeImage.className = 'type type-normal';
+    } else if (pokemon.typeName === 'poison') {
+      $typeImage.setAttribute('src', 'images/icons/poison.svg');
+      $typeImage.className = 'type type-poison';
+    } else if (pokemon.typeName === 'psychic') {
+      $typeImage.setAttribute('src', 'images/icons/psychic.svg');
+      $typeImage.className = 'type type-psychic';
+    } else if (pokemon.typeName === 'rock') {
+      $typeImage.setAttribute('src', 'images/icons/rock.svg');
+      $typeImage.className = 'type type-rock';
+    } else if (pokemon.typeName === 'steel') {
+      $typeImage.setAttribute('src', 'images/icons/steel.svg');
+      $typeImage.className = 'type type-steel';
+    } else if (pokemon.typeName === 'water') {
+      $typeImage.setAttribute('src', 'images/icons/water.svg');
+      $typeImage.className = 'type type-water';
+    }
   }
   $typeContainer.appendChild($typeImage);
 
   var $typeName = document.createElement('p');
-  $typeName.textContent = pokemon.types[0].type.name.charAt(0).toUpperCase() + pokemon.types[0].type.name.slice(1);
+  if (pokemon.types) {
+    $typeName.textContent = pokemon.types[0].type.name.charAt(0).toUpperCase() + pokemon.types[0].type.name.slice(1);
+  } else {
+    $typeName.textContent = pokemon.typeName;
+  }
   $typeContainer.appendChild($typeName);
 
   var $statContainer = document.createElement('div');
@@ -147,15 +227,27 @@ function renderDomTree(pokemon) {
   $statColumnSpacing.appendChild($columnOne);
 
   var $hp = document.createElement('p');
-  $hp.textContent = 'HP: ' + pokemon.stats[0].base_stat;
+  if (pokemon.stats) {
+    $hp.textContent = 'HP: ' + pokemon.stats[0].base_stat;
+  } else {
+    $hp.textContent = 'HP: ' + pokemon.hp;
+  }
   $columnOne.appendChild($hp);
 
   var $atk = document.createElement('p');
-  $atk.textContent = 'ATK: ' + pokemon.stats[1].base_stat;
+  if (pokemon.status) {
+    $atk.textContent = 'ATK: ' + pokemon.stats[1].base_stat;
+  } else {
+    $atk.textContent = 'ATK: ' + pokemon.atk;
+  }
   $columnOne.appendChild($atk);
 
   var $def = document.createElement('p');
-  $def.textContent = 'DEF: ' + pokemon.stats[2].base_stat;
+  if (pokemon.status) {
+    $def.textContent = 'DEF: ' + pokemon.stats[2].base_stat;
+  } else {
+    $def.textContent = 'DEF: ' + pokemon.def;
+  }
   $columnOne.appendChild($def);
 
   var $columnTwo = document.createElement('div');
@@ -163,15 +255,27 @@ function renderDomTree(pokemon) {
   $statColumnSpacing.appendChild($columnTwo);
 
   var $spAtk = document.createElement('p');
-  $spAtk.textContent = 'Sp-ATK: ' + pokemon.stats[3].base_stat;
+  if (pokemon.status) {
+    $spAtk.textContent = 'Sp-ATK: ' + pokemon.stats[3].base_stat;
+  } else {
+    $spAtk.textContent = 'Sp-ATK: ' + pokemon.spAtk;
+  }
   $columnTwo.appendChild($spAtk);
 
   var $spDef = document.createElement('p');
-  $spDef.textContent = 'Sp-DEF: ' + pokemon.stats[4].base_stat;
+  if (pokemon.status) {
+    $spDef.textContent = 'Sp-DEF: ' + pokemon.stats[4].base_stat;
+  } else {
+    $spDef.textContent = 'Sp-DEF: ' + pokemon.spDef;
+  }
   $columnTwo.appendChild($spDef);
 
   var $speed = document.createElement('p');
-  $speed.textContent = 'Speed: ' + pokemon.stats[5].base_stat;
+  if (pokemon.status) {
+    $speed.textContent = 'Speed: ' + pokemon.stats[5].base_stat;
+  } else {
+    $speed.textContent = 'Speed: ' + pokemon.speed;
+  }
   $columnTwo.appendChild($speed);
 
   var $buttonContainer = document.createElement('div');
@@ -204,9 +308,24 @@ function viewSwap(dataView) {
 }
 
 $searchedPokemonUl.addEventListener('click', function (e) {
-  // console.log(e.target.tagName);
+  var pokemonExists = false;
   if (e.target.tagName === 'BUTTON') {
-    // console.log('hello');
-    viewSwap('favorites');
+    for (var index = 0; index < data.pokemons.length; index++) {
+      if (data.pokemons[index].name === currentPokemon.name) {
+        pokemonExists = true;
+        return;
+      }
+    }
+    if (pokemonExists === false) {
+      data.pokemons.unshift(currentPokemon);
+      data.nextDataId++;
+      var renderFavorite = renderDomTree(currentPokemon);
+      $favoritedPokemonUl.appendChild(renderFavorite);
+      viewSwap('favorites');
+    }
   }
 });
+
+// function toggleNoPokemons() {
+
+// }
