@@ -37,7 +37,7 @@ function getPokemonData(name) {
     currentPokemon = {};
     currentPokemon.dataId = data.nextDataId;
     currentPokemon.name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
-    currentPokemon.img = document.querySelector('.pokemon-image').getAttribute('src');
+    currentPokemon.img = response.sprites.other['official-artwork'].front_default;
     currentPokemon.typeName = response.types[0].type.name.charAt(0).toUpperCase() + response.types[0].type.name.slice(1);
     currentPokemon.typeIcon = document.querySelector('.type').getAttribute('src');
     currentPokemon.hp = response.stats[0].base_stat;
@@ -235,7 +235,7 @@ function renderDomTree(pokemon) {
   $columnOne.appendChild($hp);
 
   var $atk = document.createElement('p');
-  if (pokemon.status) {
+  if (pokemon.stats) {
     $atk.textContent = 'ATK: ' + pokemon.stats[1].base_stat;
   } else {
     $atk.textContent = 'ATK: ' + pokemon.atk;
@@ -243,7 +243,7 @@ function renderDomTree(pokemon) {
   $columnOne.appendChild($atk);
 
   var $def = document.createElement('p');
-  if (pokemon.status) {
+  if (pokemon.stats) {
     $def.textContent = 'DEF: ' + pokemon.stats[2].base_stat;
   } else {
     $def.textContent = 'DEF: ' + pokemon.def;
@@ -255,7 +255,7 @@ function renderDomTree(pokemon) {
   $statColumnSpacing.appendChild($columnTwo);
 
   var $spAtk = document.createElement('p');
-  if (pokemon.status) {
+  if (pokemon.stats) {
     $spAtk.textContent = 'Sp-ATK: ' + pokemon.stats[3].base_stat;
   } else {
     $spAtk.textContent = 'Sp-ATK: ' + pokemon.spAtk;
@@ -263,7 +263,7 @@ function renderDomTree(pokemon) {
   $columnTwo.appendChild($spAtk);
 
   var $spDef = document.createElement('p');
-  if (pokemon.status) {
+  if (pokemon.stats) {
     $spDef.textContent = 'Sp-DEF: ' + pokemon.stats[4].base_stat;
   } else {
     $spDef.textContent = 'Sp-DEF: ' + pokemon.spDef;
@@ -271,7 +271,7 @@ function renderDomTree(pokemon) {
   $columnTwo.appendChild($spDef);
 
   var $speed = document.createElement('p');
-  if (pokemon.status) {
+  if (pokemon.stats) {
     $speed.textContent = 'Speed: ' + pokemon.stats[5].base_stat;
   } else {
     $speed.textContent = 'Speed: ' + pokemon.speed;
@@ -319,13 +319,19 @@ $searchedPokemonUl.addEventListener('click', function (e) {
     if (pokemonExists === false) {
       data.pokemons.unshift(currentPokemon);
       data.nextDataId++;
-      var renderFavorite = renderDomTree(currentPokemon);
+      var renderFavorite = renderDomTree(data.pokemons);
       $favoritedPokemonUl.appendChild(renderFavorite);
       viewSwap('favorites');
     }
   }
 });
 
-// function toggleNoPokemons() {
-
-// }
+function toggleNoPokemons() {
+  var $noFavorites = document.querySelector('.no-favorites');
+  if (data.pokemons.length > 0) {
+    $noFavorites.className = 'row no-favorites hidden';
+  } else {
+    $noFavorites.className = 'row no-favorites';
+  }
+}
+toggleNoPokemons();
