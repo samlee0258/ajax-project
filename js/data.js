@@ -8,7 +8,7 @@ var data = {
 
 window.addEventListener('beforeunload', function (event) {
   var dataJSON = JSON.stringify(data);
-  localStorage.setItem('pokemons', dataJSON);
+  localStorage.setItem('pokestats', dataJSON);
 });
 
 var pokemonEntries = localStorage.getItem('pokemons');

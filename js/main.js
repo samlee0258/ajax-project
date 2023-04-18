@@ -286,8 +286,12 @@ function renderDomTree(pokemon) {
   $favoritesButton.textContent = 'Add to Favorites';
   $favoritesButton.className = 'favorites-button';
   $buttonContainer.appendChild($favoritesButton);
+  $favoritesButton.addEventListener('click', handleAddFavorite);
 
   return $li;
+}
+function handleAddFavorite(e) {
+  localStorage.setItem('pokemons');
 }
 
 function viewSwap(dataView) {
@@ -315,21 +319,23 @@ $searchedPokemonUl.addEventListener('click', function (e) {
         pokemonExists = true;
         return;
       }
+      if (pokemonExists === false) {
+        data.pokemons.unshift(currentPokemon);
+        data.nextDataId++;
+        var renderFavorite = renderDomTree(JSON.parse(data.pokemons).pokemons);
+        // console.log(renderFavorite);
+        $favoritedPokemonUl.appendChild(renderFavorite);
+        viewSwap('favorites');
+      }
     }
-    if (pokemonExists === false) {
-      data.pokemons.unshift(currentPokemon);
-      data.nextDataId++;
-      var renderFavorite = renderDomTree(data.pokemons);
-      $favoritedPokemonUl.appendChild(renderFavorite);
-      viewSwap('favorites');
-    }
+
   }
 });
 
 function toggleNoPokemons() {
   var $noFavorites = document.querySelector('.no-favorites');
   if (data.pokemons.length > 0) {
-    $noFavorites.className = 'row no-favorites hidden';
+    $noFavorites.className = 'hidden';
   } else {
     $noFavorites.className = 'row no-favorites';
   }
